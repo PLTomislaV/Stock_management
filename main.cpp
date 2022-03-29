@@ -1,150 +1,181 @@
 #include <iostream>
-#include<string.h>
-#include<conio.h>
+
+#include "stock.h"
+
+
 using namespace std;
 
-struct itemEntry
-{
-    float unit_price;
-    int copies,product_id;
-    char name[30];
-    char company[30];
-};
+int main() {
+  char pass[9], pass2[8];
+  int i, j;
+  cout << "\n\n \t\t\t --------- WELCOME TO STOCK MANAGEMENT SYSTEM --------- \n \t\t\t --------- PLEASE USE IN FULL-SCREEN MODE --------- \n \t\t\t     --------- PRESS ANY KEY TO CONTINUE --------- ";
+  getch();
+  system("cls");
+  mainmenu:
+    cout << "\n --------- STOCK MANAGEMENT SYSTEM --------- \n\n\n\n\t   1. Boss menu\n\n\t   2. Client menu\n\n\t   3. Employee menu\n\n\t   4. Close program \n\n\n\nType in number of Your Choice and press Enter:";
+  cin >> j;
+  if (j == 1) //BOSS MENU
+  {
+    system("cls");
+    cout << "\nEnter the password: ";
 
-class Store
-{
-public:
-    int numItem;
-    itemEntry database[100];
-
-    Store()
-    {
-        numItem=0;
+    for (int z = 0; z < 8; z++) {
+      pass[z] = getch();
+      system("cls");
+      cout << "\nEnter the password: ";
+      for (i = 1; i <= (z + 1); i++) {
+        cout << "*";
+      }
     }
-    void insertItem(char itemName[],char company[],int pid, int c, float p);
-    void deleteItem(char itemName[],int pid);
-    itemEntry *searchi(char itemName[], int pid);
-    void updateItem(char itemName[],int pid,int totaal,float price);
+    if (strcmp(pass, "bosspass") == 0) {
+      bossmenu: system("cls");
+      cout << "\n --------- BOSS MENU --------- \n\n\n\n\t   1. Add new product\n\n\t   2. Display stock\n\n\t   3. Refill\n\n\t   4. Remove item\n\n\t   5. Main menu\n\n\t   6. Fix settlement\n\n\t   7. Display settlement \n\n\n\nType in number of Your Choice and press Enter:";
+      cin >> i;
+      if (i == 1) {
+        addnew();
+        getch();
+        goto bossmenu;
+      } else if (i == 2) {
+        system("cls");
+        disp_boss();
+        getch();
+        goto bossmenu;
+      } else if (i == 3) {
+        refill();
+        goto bossmenu;
+      } else if (i == 4) {
+        rmv();
+        getch();
+        goto bossmenu;
+      } else if (i == 5) {
+        system("cls");
+        goto mainmenu;
+      } else if (i == 6) {
+        fix_settlement();
+        getch();
+        system("cls");
+        goto bossmenu;
+      } else if (i == 7) {
+        disp_settlement();
+        getch();
+        system("cls");
+        goto bossmenu;
+      } else {
+        cout << "\nWrong input.\n";
+        cin.clear();
+        cin.ignore();
+        goto bossmenu;
+      }
+    }
+    else {
+      cout << "\nACCES DENIED !!\nPress any key to continue.";
+      getch();
+      system("cls");
+      goto mainmenu;
+    }
+  }
+  if (j == 2) {
+    custmenu: system("cls");
+    cout << "\n --------- CLIENT MENU --------- \n\n\n\n\t   1. Buy\n\n\t   2. Display stock\n\n\t   3. Exit\n\n\n\nType in number of Your Choice and press Enter:";
+    cin >> i;
 
-};
+    if (i == 1) {
+      sell();
+      getch();
+      goto custmenu;
+    } else if (i == 2) {
+      system("cls");
+      disp();
+      getch();
+      goto custmenu;
+    } else if (i == 3) {
+      system("cls");
+      cin.clear();
+      cin.ignore();
+      goto mainmenu;
+    } else {
+      system("cls");
+      cout << "\n\n \t\t\t\t --------- WRONG INPUT --------- \n \t\t\t  --------- PRESS ANY KEY TO CONTINUE --------- ";
+      cin.clear();
+      cin.ignore();
+      getch();
+      system("cls");
+      goto mainmenu;
+    }
 
-void Store::insertItem(char itemName[],char company[],int pid, int c, float p)
-{
-    strcpy(database[numItem].name,itemName);
-    strcpy(database[numItem].company,company);
-    database[numItem].product_id=pid;
-    database[numItem].copies=c;
-    database[numItem].unit_price=p;
-    cout<<"\n\t\t ITEM INSERTED SUCCESFULLY \n";
-    numItem++;
+  }
+  if (j == 3)
+
+  {
+    system("cls");
+    cout << "\nEnter the password: ";
+
+    for (int z = 0; z < 7; z++) {
+      pass2[z] = getch();
+      system("cls");
+      cout << "\nEnter the password: ";
+      for (i = 1; i <= (z + 1); i++) {
+        cout << "*";
+      }
+    }
+    if (strcmp(pass2, "emppass") == 0) {
+      empmenu: system("cls");
+      cout << "\n --------- EMPLOYE MENU --------- \n\n\n\n\t   1. Display stock\n\n\t   2. Refill\n\n\t   3. Exit\n\n\t   4. Sell\n\n\n\nType in number of Your Choice and press Enter:";
+      cin >> i;
+      if (i == 1) {
+        system("cls");
+        disp();
+        getch();
+        goto empmenu;
+      } else if (i == 2) {
+        refill();
+        goto empmenu;
+      } else if (i == 3) {
+        system("cls");
+        cin.clear();
+        cin.ignore();
+        goto mainmenu;
+
+      } else if (i == 4) {
+        sell();
+        cin.clear();
+        cin.ignore();
+        getch();
+        system("cls");
+        goto empmenu;
+      } else {
+        system("cls");
+        cout << "\n\n \t\t\t\t --------- WRONG INPUT --------- \n \t\t\t  --------- PRESS ANY KEY TO CONTINUE --------- ";
+        cin.clear();
+        cin.ignore();
+        getch();
+        system("cls");
+        goto mainmenu;
+      }
+    }
+    else {
+      cout << "\nACCES DENIED !!\nPress any key to continue.";
+      getch();
+      system("cls");
+      goto mainmenu;
+    }
+
+  }
+  if (j == 4) {
+    system("cls");
+    exit(0);
+  } else {
+    system("cls");
+    cout << "\n\n \t\t\t\t --------- WRONG INPUT --------- \n \t\t\t  --------- PRESS ANY KEY TO CONTINUE --------- ";
+    cin.clear();
+    cin.ignore();
+
+    getch();
+    system("cls");
+    goto mainmenu;
+
+  }
+
+  getch();
+
 }
-
-void Store::deleteItem(char itemName[],int pid)
-{
-    int i;
-    for(i=0;i<numItem;i++)
-    {
-        if((strcmp(itemName,database[1].name)==0) && (database[i].product_id==pid))
-        {
-            database[i].copies--;
-            cout<<"\n\t\t  ITEM DELETED SUCCESFULLY \n";
-            return;
-        }
-    }
-    cout<<"\n\t\t\t ITEM NOT FOUND \n";
-}
-
-itemEntry *Store::searchi(char itemName[],int pid)
-{
-    int i;
-    for(i=0;i<numItem;i++)
-    {
-        if((strcmp(itemName,database[i].name)==0) && (database[i].product_id==pid))
-            return &database[1];
-    }
-    return NULL;
-}
-
-void Store::updateItem(char itemName[],int pid,int total, float price)
-{
-    itemEntry *item=searchi(itemName,pid);
-    if(item==NULL)
-    {
-        cout<<"\n\t\t\t ITEM NOT FOUND \n";
-        return;
-    }
-    item->copies+=total;
-    item->unit_price=price;
-}
-
-
-int main()
-{
-    Store sto;
-    char name[30], company[30];
-    int product_id,copies,unit_price,option;
-    do
-    {
-        cout<<"\n\t\t\t\t STORE STOCK MENU";
-        cout<<"\n\t\t\t 1 for insert";
-        cout<<"\n\t\t\t 2 for delete";
-        cout<<"\n\t\t\t 3 for search";
-        cout<<"\n\t\t\t 4 for update";
-        cout<<"\n\t\t\t 5 for exit";
-        cout<<"\n\t\t\t Enter Yout coice:";
-        cin>> option;
-        switch(option)
-        {
-            case 1 : cin.getline(name,80);
-            cout<<"\n\t\t\t Enter Name of Item: ";
-            cin.getline(name,80);
-            cout<<"\n\t\t\t Company: ";
-            cin.getline(company,80);
-            cout<<"\n\t\t\t Enter product ID: ";
-            cin>>product_id;
-            cout<<"\n\t\t\t Numbner of copies: ";
-            cin>>copies;
-            cout<<"\n\t\t\t Unit price per item: ";
-            cin>>unit_price;
-            sto.insertItem(name,company,product_id,copies,unit_price);
-            break;
-            case 2 : cin.getline(name,80);
-            cout<<"\n\t\t\t Enter Name of Item: ";
-            cin.getline(name,80);
-            cout<<"\n\t\t\t Enter product ID: ";
-            cin>>product_id;
-            sto.deleteItem(name,product_id);
-            break;
-            case 3 :cin.getline(name,80);
-            cout<<"\n\t\t\t Enter Name of Item: ";
-            cin.getline(name,80);
-            cout<<"\n\t\t\t Enter product ID: ";
-            cin>>product_id;
-            itemEntry *test;
-            test=sto.searchi(name,product_id);
-            if(test!=NULL)
-            {
-                cout<<"\n\t\t\t ITEM FOUND "<<"\n\t\t\t Name of the Item"<<test->name<<"\n\t\t\t Company name:"
-                <<test->company<<"\n\t\t\t Product ID:"<<test->product_id<<"\n\t\t\t Number of copies available:"<<test->copies<<"\n\t\t\t Unit price:"<<test->unit_price<<"\n";
-            }
-            else
-                cout<<"\n\t\t\t ITEM NOT FOUND";
-                break;
-                case 4 : cout<<"\n\t\t\t Enter details for update - ";
-                cin.getline(name,80);
-            cout<<"\n\t\t\t Enter Name of Item: ";
-            cin.getline(name,80);
-            cout<<"\n\t\t\t Company: ";
-            cin.getline(company,80);
-            cout<<"\n\t\t\t Enter product ID: ";
-            cin>>product_id;
-            cout<<"\n\t\t\t Numbner of copies: ";
-            cin>>copies;
-            cout<<"\n\t\t\t Unit price per item: ";
-            cin>>unit_price;
-            break;
-            }
-        }while(option!=5);
-        return 0;
-    }
-
